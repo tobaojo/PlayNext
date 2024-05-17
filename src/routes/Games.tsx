@@ -1,13 +1,14 @@
 import { useLoaderData } from 'react-router-dom';
-import HeroSection from '../components/HeroSection';
 import { getAllGames } from '../api/api';
 
 export async function loader() {
   const games = await getAllGames();
-  console.log(games);
+  return { games };
 }
 
 const Games = () => {
+  const { games } = useLoaderData();
+  console.log(games);
   return <div>Games</div>;
 };
 
