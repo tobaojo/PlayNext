@@ -26,3 +26,7 @@ export const newsSchema = z.object({
 });
 
 export type News = z.infer<typeof newsSchema>;
+
+export type ComponentProps = {
+  news: News[];
+};

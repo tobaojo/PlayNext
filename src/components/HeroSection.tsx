@@ -1,4 +1,6 @@
-const HeroSection = ({ news }) => {
+import { type ComponentProps } from '../types/types';
+
+const HeroSection = ({ news }: ComponentProps) => {
   const firstArticle = news[Math.floor(Math.random() * 50)];
   const otherArticles = news.slice(1, 5);
   return (
@@ -9,15 +11,23 @@ const HeroSection = ({ news }) => {
             <img
               src={firstArticle?.main_image}
               alt={firstArticle?.main_image}
-              className='rounded-xl'
+              className='rounded-xl transform transition-transform duration-500 hover:scale-105 hover:cursor-pointer'
             />
-            <p className='p-5 text-slate-200 font-bold'>{firstArticle?.short_description}</p>
+            <p className='p-5 text-slate-200 font-bold hover:decoration-solid hover:cursor-pointer'>
+              {firstArticle?.short_description}
+            </p>
           </div>
           <div className='flex flex-col m-3 md:grid md:grid-cols-2 md:gap-4 md:w-2/5'>
             {otherArticles.map((article) => (
               <div className='bg-slate-600 pb-5 rounded-xl mt-4 items-center' key={article.id}>
-                <img src={article?.main_image} alt='' className='rounded-xl' />
-                <p className='p-5 text-slate-200 font-bold'>{article?.short_description}</p>
+                <img
+                  src={article?.main_image}
+                  alt=''
+                  className='rounded-xl transform transition-transform duration-500 hover:scale-105 hover:cursor-pointer'
+                />
+                <p className='p-5 text-slate-200 font-bold hover:underline hover:decoration-solid hover:cursor-pointer'>
+                  {article?.short_description}
+                </p>
               </div>
             ))}
           </div>
