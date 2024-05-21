@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/errorPage.tsx';
 import Games, { loader as gamesLoader } from './routes/Games.tsx';
 import Articles, { loader as articleLoader } from './routes/Articles.tsx';
+import Article, { loader as SingleArticleLoader } from './routes/Article.tsx';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -19,9 +20,15 @@ const router = createBrowserRouter([
         element: <Articles />,
         errorElement: <ErrorPage />,
         loader: articleLoader,
-        children: [{ path: '/article/:articleId' }],
+        children: [],
       },
       { path: 'games', element: <Games />, errorElement: <ErrorPage />, loader: gamesLoader },
+      {
+        path: 'article/:articleId',
+        element: <Article />,
+        errorElement: <ErrorPage />,
+        loader: SingleArticleLoader,
+      },
     ],
   },
 ]);

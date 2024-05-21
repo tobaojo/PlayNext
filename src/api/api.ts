@@ -38,3 +38,8 @@ export async function getGamesNews() {
     return message;
   }
 }
+
+export async function getSingleGameNews(newsArray: News[], id: number) {
+  const singleArticle = newsArray.find((article) => article.id === id);
+  return singleArticle;
+}

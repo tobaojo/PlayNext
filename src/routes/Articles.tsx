@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { getGamesNews } from '../api/api';
+import { type News } from '../types/types';
 import HeroSection from '../components/HeroSection';
 import ArticleList from '../components/EditorsPicks';
 
@@ -9,7 +10,7 @@ export async function loader() {
 }
 
 const Articles = () => {
-  const { news } = useLoaderData();
+  const { news } = useLoaderData() as { news: News[] };
 
   return (
     <>
