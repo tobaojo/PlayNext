@@ -7,33 +7,34 @@ const HeroSection = ({ news }: ComponentProps) => {
   return (
     <>
       <div className='container mx-auto'>
-        <div className='flex flex-col items-center space-y-6 p-2 md:flex-row md:space-x-9 md:p-0'>
-          <div className='bg-slate-600 pb-5  md:w-3/5 rounded-xl'>
+        <div className='flex flex-col items-center md:flex-row md:p-0'>
+          <div className='relative md:w-6/12'>
             <Link to={`article/${firstArticle.id}`}>
               <img
                 src={firstArticle?.main_image}
                 alt={firstArticle?.main_image}
-                className='rounded-xl transform transition-transform duration-500 hover:scale-105 hover:cursor-pointer'
+                className='hover:cursor-pointer'
               />
-              <p className='p-5 text-slate-200 font-bold hover:decoration-solid hover:cursor-pointer'>
-                {firstArticle?.short_description}
-              </p>
+              <div className='absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2'>
+                <p className='p-5 text-slate-200 font-bold hover:decoration-solid hover:cursor-pointer'>
+                  {firstArticle?.short_description}
+                </p>
+              </div>
             </Link>
           </div>
-          <div className='flex flex-col m-3 md:grid md:grid-cols-2 md:gap-4 md:w-2/5'>
+
+          <div className='flex flex-col space-y-2 m-1 md:grid md:grid-cols-2 md:gap-2 md:space-y-0 md:w-6/12'>
             {otherArticles.map((article) => (
-              <Link to={`article/${article.id}`} key={article.id}>
-                <div className='bg-slate-600 pb-5 rounded-xl mt-4 items-center'>
-                  <img
-                    src={article?.main_image}
-                    alt=''
-                    className='rounded-xl transform transition-transform duration-500 hover:scale-105 hover:cursor-pointer'
-                  />
-                  <p className='p-5 text-slate-200 font-bold hover:underline hover:decoration-solid hover:cursor-pointer'>
-                    {article?.short_description}
-                  </p>
-                </div>
-              </Link>
+              <div className='relative'>
+                <Link to={`article/${article.id}`} key={article.id}>
+                  <img src={article?.main_image} alt='' className='hover:cursor-pointer' />
+                  <div className='absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2'>
+                    <p className='p-1 text-slate-200 font-bold hover:underline hover:decoration-solid hover:cursor-pointer'>
+                      {article?.short_description}
+                    </p>
+                  </div>
+                </Link>
+              </div>
             ))}
           </div>
         </div>

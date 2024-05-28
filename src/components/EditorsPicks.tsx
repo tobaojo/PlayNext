@@ -1,28 +1,30 @@
 import { type ComponentProps } from '../types/types';
 import { Link } from 'react-router-dom';
 
-const ArticleList = ({ news }: ComponentProps) => {
-  console.log(news);
+const EditorsPicks = ({ news }: ComponentProps) => {
+  const editorsPicks = news?.slice(1, 7);
+  console.log(editorsPicks);
   return (
-    <div className='container mx-auto border-t-2 mt-9 p-6 border-slate-400'>
+    <div className='container mx-auto border-t-2 mt-9 border-slate-400'>
       <h2 className='font-bold text-4xl'>Editor's Picks</h2>
-      <div className='flex flex-col divide-y-2 divide-slate-200 items-center space-y-6 md:grid md:grid-cols-2 md:gap-4 md:divide-y-0'>
-        {news.map((article) => (
-          <Link to={`article/${article.id}`} key={article.id}>
-            <div className='flex hover:cursor-pointer items-center ' key={article?.id}>
-              <img
-                src={article?.thumbnail}
-                className='rounded-xl w-2/5 m-4 transform transition-transform duration-500 hover:scale-110'
-              />
-              <p className='text-slate-900 font-bold w-3/5 text-sm hover:text-red-500 md:text-lg'>
-                {article?.short_description}
-              </p>
-            </div>
-          </Link>
-        ))}
+      <div className='flex flex-col divide-y-6 divide-slate-200  space-y-2 md:grid md:grid-cols-3 md:gap-0 md:divide-y-0'>
+        {editorsPicks ? (
+          editorsPicks.map((article) => (
+            <Link to={`article/${article.id}`} key={article.id}>
+              <div className='flex flex-col hover:cursor-pointer m-4' key={article?.id}>
+                <img src={article?.main_image} />
+                <p className='text-slate-900 font-bold text-sm hover:text-red-500 md:text-lg'>
+                  {article?.short_description}
+                </p>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <p>Could not load news articles</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default ArticleList;
+export default EditorsPicks;

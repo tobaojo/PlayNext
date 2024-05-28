@@ -2,7 +2,8 @@ import { useLoaderData } from 'react-router-dom';
 import { getGamesNews } from '../api/api';
 import { type News } from '../types/types';
 import HeroSection from '../components/HeroSection';
-import ArticleList from '../components/EditorsPicks';
+import EditorsPicks from '../components/EditorsPicks';
+import OtherArticles from '../components/OtherArticles';
 
 export async function loader() {
   const news = await getGamesNews();
@@ -15,7 +16,8 @@ const Articles = () => {
   return (
     <>
       <HeroSection news={news} />
-      <ArticleList news={news} />
+      <EditorsPicks news={news} />
+      <OtherArticles news={news} />
     </>
   );
 };

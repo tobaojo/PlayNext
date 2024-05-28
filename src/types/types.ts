@@ -11,7 +11,7 @@ export const gameSchema = z.object({
   publisher: z.string(),
   developer: z.string(),
   release_date: z.string(),
-  profile_url: z.string(),
+  freetogame_profile_url: z.string(),
 });
 
 export type Game = z.infer<typeof gameSchema>;
@@ -28,5 +28,10 @@ export const newsSchema = z.object({
 export type News = z.infer<typeof newsSchema>;
 
 export type ComponentProps = {
-  news: News[];
+  news?: News[];
+  games?: Game[];
+};
+
+export type Colours = {
+  [key: string]: string;
 };
