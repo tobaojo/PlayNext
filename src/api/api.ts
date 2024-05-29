@@ -13,7 +13,7 @@ export async function getAllGames() {
     const rawData: Game[] = await response.json();
     console.log(rawData);
     const data = gameSchema.array().safeParse(rawData);
-    console.log(data);
+    console.log(data.error);
     if (!data.success) {
       console.error(data.error.message);
       throw new Error('failed to parse games');

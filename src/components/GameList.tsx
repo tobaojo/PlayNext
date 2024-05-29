@@ -13,6 +13,7 @@ const genreColors: Colours = {
 };
 
 const GameList = ({ games }: ComponentProps) => {
+  console.log(games);
   return (
     <div className='container mx-auto'>
       <div className='flex flex-col space-y-6 items-center md:grid md:grid-cols-3 md:gap-2 md:divide-y-0 '>
@@ -23,7 +24,7 @@ const GameList = ({ games }: ComponentProps) => {
               <Link to={`/${game.id}`} key={game.id}>
                 <div className='hover:cursor-pointer'>
                   <div className='space-y-2'>
-                    <img src={game.thumbnail} alt='' className='rounded-xl' />
+                    <img src={game.thumbnail} alt='' className='' />
                   </div>
                   <div className='items-center'>
                     <small
@@ -31,7 +32,7 @@ const GameList = ({ games }: ComponentProps) => {
                     >
                       {game.genre}
                     </small>
-                    <h3>{game.title}</h3>
+                    <h4>{game.title}</h4>
                   </div>
                 </div>
               </Link>

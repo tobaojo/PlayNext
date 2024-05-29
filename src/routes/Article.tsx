@@ -1,41 +1,37 @@
 import { useLoaderData } from 'react-router-dom';
-import parse, { domToReact, HTMLReactParserOptions } from 'html-react-parser';
-import { DOMNode, Element } from 'domhandler';
+import parse, { DOMNode, domToReact, HTMLReactParserOptions, Element } from 'html-react-parser';
 import { type News } from '../types/types';
 import { getGamesNews, getSingleGameNews } from '../api/api';
 
 const options: HTMLReactParserOptions = {
   replace: (domNode: DOMNode) => {
-    if ((domNode as Element).type === 'tag') {
-      const element = domNode as Element;
-      if (element.name === 'a') {
-        return (
-          <a href={element.attribs.href} target={element.attribs.target} className='text-sky-700'>
-            {domToReact(element.children, options)}
-          </a>
-        );
-      }
-      if (element.name === 'img') {
-        console.log(element.attribs.src);
-        return (
-          <img
-            className='rounded-xl my-5 md:mx-auto'
-            src={element.attribs.src}
-            alt={element.attribs.src}
-          />
-        );
-      }
-      if (element.name === 'iframe') {
-        return (
-          <iframe
-            className='w-[42rem] h-[26rem] mt-5 md:mx-auto'
-            src={element.attribs.src}
-          ></iframe>
-        );
-      }
-      if (element.name !== 'a' && element.name !== 'img' && element.name === 'iframe') {
-        console.log(element);
-        return <p className='text-red-500'>{domToReact(element.children)}</p>;
+    if (domNode instanceof Element) {
+      const { name, attribs, children } = domNode;
+      if (domNode.type === 'tag') {
+        switch (name) {
+          case 'a':
+            return (
+              <a href={attribs.href} target={attribs.target} className='text-sky-700'>
+                {domToReact(children as DOMNode[], options)}
+              </a>
+            );
+          case 'img':
+            return (
+              <img className='my-5 md:mx-auto' src={attribs.src} alt={attribs.alt || 'image'} />
+            );
+          case 'p':
+            if (children[0] instanceof Text && children[0]?.data?.includes('img')) {
+              return parse(children[0].data);
+            }
+            break;
+          case 'iframe':
+            return (
+              <iframe
+                className='items-center mt-5 mx-auto w-8/12 md:w-[42rem] md:h-[26rem]'
+                src={attribs.src}
+              ></iframe>
+            );
+        }
       }
     }
   },
@@ -69,11 +65,11 @@ const Article = () => {
   if (isArticle(singleArticle)) {
     return (
       <div className='container mx-auto'>
-        <div>
+        <div className='m-4'>
           <small>News</small>
           <h3 className='mb-10 font-bold text-3xl'>{singleArticle.short_description}</h3>
         </div>
-        <div className=''>{parse(singleArticle.article_content, options)}</div>
+        <div className='m-4'>{parse(singleArticle.article_content, options)}</div>
       </div>
     );
   }

@@ -10,7 +10,12 @@ export async function loader() {
 
 const Games = () => {
   const { games } = useLoaderData() as { games: Game[] };
-  return <GameList games={games} />;
+  return (
+    <div className='container mx-auto'>
+      <h3>Find your next game here</h3>
+      <GameList games={games} />
+    </div>
+  );
 };
 
 export default Games;

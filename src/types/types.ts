@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+const screenshotSchema = z.object({
+  id: z.number(),
+  image: z.string(),
+});
+
 export const gameSchema = z.object({
   id: z.number(),
   title: z.string(),
@@ -12,6 +17,9 @@ export const gameSchema = z.object({
   developer: z.string(),
   release_date: z.string(),
   freetogame_profile_url: z.string(),
+  description: z.string().optional(),
+  status: z.string().optional(),
+  screenshots: z.array(screenshotSchema).optional(),
 });
 
 export type Game = z.infer<typeof gameSchema>;

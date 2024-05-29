@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 
 const EditorsPicks = ({ news }: ComponentProps) => {
   const editorsPicks = news?.slice(1, 7);
-  console.log(editorsPicks);
   return (
     <div className='container mx-auto border-t-2 mt-9 border-slate-400'>
       <h2 className='font-bold text-4xl'>Editor's Picks</h2>
-      <div className='flex flex-col divide-y-6 divide-slate-200  space-y-2 md:grid md:grid-cols-3 md:gap-0 md:divide-y-0'>
+      <div className='flex flex-col divide-y-6 divide-slate-200 space-y-2 md:grid md:grid-cols-3 md:gap-0 md:divide-y-0'>
         {editorsPicks ? (
           editorsPicks.map((article) => (
             <Link to={`article/${article.id}`} key={article.id}>
