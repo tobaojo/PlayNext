@@ -5,6 +5,17 @@ const screenshotSchema = z.object({
   image: z.string(),
 });
 
+// const minimumRequirements = z.object({
+//   graphics: z.string(),
+//   memory: z.string(),
+//   processor: z.string(),
+//   os: z.string(),
+//   storage: z.string(),
+//   strip: z.string().optional(),
+// });
+
+export type Screenshots = z.infer<typeof screenshotSchema>;
+
 export const gameSchema = z.object({
   id: z.number(),
   title: z.string(),
@@ -20,6 +31,16 @@ export const gameSchema = z.object({
   description: z.string().optional(),
   status: z.string().optional(),
   screenshots: z.array(screenshotSchema).optional(),
+  minimum_system_requirements: z
+    .object({
+      graphics: z.string(),
+      memory: z.string(),
+      processor: z.string(),
+      os: z.string(),
+      storage: z.string(),
+      strip: z.string().optional(),
+    })
+    .optional(),
 });
 
 export type Game = z.infer<typeof gameSchema>;
@@ -38,6 +59,7 @@ export type News = z.infer<typeof newsSchema>;
 export type ComponentProps = {
   news?: News[];
   games?: Game[];
+  screenshots?: Screenshots[];
 };
 
 export type Colours = {

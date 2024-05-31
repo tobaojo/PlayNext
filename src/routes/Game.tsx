@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import { getSingleGame, getAllGames } from '../api/api';
 import { type Game } from '../types/types';
+import GameSwiper from '../components/GameSwiper';
 
 export async function loader({ params }: { params: { gameId: string } }) {
   const games = await getAllGames();
@@ -19,8 +20,8 @@ const Game = () => {
   console.log(singleGame);
   return (
     <div className='container mx-auto'>
-      <div className='flex flex-col space-y-8'>
-        <div className='flex  p-2 border-slate-400 space-x-5'>
+      <div className='flex flex-col space-y-8 m-4'>
+        <div className='flex flex-col space-y-2 md:flex-row p-2 border-slate-400 space-x-5'>
           <div>
             <img className='my-1 ' src={singleGame.thumbnail} alt='' />
             <Link
@@ -46,7 +47,7 @@ const Game = () => {
             </Link>
           </div>
           <div className='w-3/5'>
-            <h3 className='font-bold text-5xl'>{singleGame.title}</h3>
+            <h3 className='font-bold text-3xl md:text-5xl'>{singleGame.title}</h3>
             <p className='italic mb-3'>{singleGame.short_description}</p>
             <div className='flex space-x-1'>
               <p className='text-red-700'>{singleGame.developer}</p>
@@ -57,19 +58,66 @@ const Game = () => {
         </div>
         <p>{singleGame?.description}</p>
       </div>
-
-      <div>
+      <div className='m-4'>
         <h4>screenshots</h4>
-        <div className='flex'>
-          {singleGame.screenshots?.map((screenshot) => {
-            return (
-              <img
-                className='flex flex-col m-5 items-center'
-                src={screenshot.image}
-                key={screenshot.id}
-              ></img>
-            );
-          })}
+        <div className='flex m-4'>
+          <GameSwiper screenshots={singleGame.screenshots} />
+        </div>
+        <div className='flex flex-col space-y-8'>
+          <div>
+            <h4 className='mb-2'>Details</h4>
+            <div className='flex space-x-10'>
+              <div className='flex flex-col'>
+                <h5>Platform</h5>
+                <p className='text-sm text-red-700'>{singleGame.platform}</p>
+              </div>
+              <div className='flex flex-col'>
+                <h5>Publisher</h5>
+                <p className='text-sm text-red-700'>{singleGame.publisher}</p>
+              </div>
+              <div className='flex flex-col'>
+                <h5>Release Date</h5>
+                <p className='text-sm text-red-700'>{singleGame.release_date}</p>
+              </div>
+              <div className='flex flex-col'>
+                <h5>Status</h5>
+                <p className='text-sm text-red-700'>{singleGame.status}</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>System Requirements</h4>
+            <div className='flex flex-col space-y-4 md:space-x-10 md:flex-row'>
+              <div>
+                <h5 className='font-semibold'>Graphics:</h5>
+                <p className='text-sm text-red-700'>
+                  {singleGame.minimum_system_requirements?.graphics}
+                </p>
+              </div>
+              <div>
+                <h5>Memory:</h5>
+                <p className='text-sm text-red-700'>
+                  {singleGame.minimum_system_requirements?.memory}
+                </p>
+              </div>
+              <div>
+                <h5>OS:</h5>
+                <p className='text-sm text-red-700'>{singleGame.minimum_system_requirements?.os}</p>
+              </div>
+              <div>
+                <h5>Processor:</h5>
+                <p className='text-sm text-red-700'>
+                  {singleGame.minimum_system_requirements?.processor}
+                </p>
+              </div>
+              <div>
+                <h5>Storage:</h5>
+                <p className='text-sm text-red-700'>
+                  {singleGame.minimum_system_requirements?.storage}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
