@@ -1,3 +1,4 @@
+import { SyntheticEvent } from 'react';
 import { z } from 'zod';
 
 const screenshotSchema = z.object({
@@ -60,6 +61,9 @@ export type ComponentProps = {
   news?: News[];
   games?: Game[];
   screenshots?: Screenshots[];
+  text?: string;
+  handleClick?: (e: SyntheticEvent) => void;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export type Colours = {

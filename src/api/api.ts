@@ -11,7 +11,7 @@ export async function getAllGames() {
       throw new Error('Some thing went wrong');
     }
     const rawData: Game[] = await response.json();
-    console.log(rawData);
+
     const data = gameSchema.array().safeParse(rawData);
     console.log(data.error);
     if (!data.success) {
@@ -59,7 +59,6 @@ export async function getSingleGame(id: number) {
       throw new Error('Something went wrong');
     }
     const rawData: Game = await response.json();
-    console.log(rawData);
     if (!rawData) {
       throw new Error('Cannot parse data');
     }

@@ -68,19 +68,19 @@ const Game = () => {
             <h4 className='mb-2'>Details</h4>
             <div className='flex space-x-10'>
               <div className='flex flex-col'>
-                <h5>Platform</h5>
+                <h5 className='font-semibold'>Platform</h5>
                 <p className='text-sm text-red-700'>{singleGame.platform}</p>
               </div>
               <div className='flex flex-col'>
-                <h5>Publisher</h5>
+                <h5 className='font-semibold'>Publisher</h5>
                 <p className='text-sm text-red-700'>{singleGame.publisher}</p>
               </div>
               <div className='flex flex-col'>
-                <h5>Release Date</h5>
+                <h5 className='font-semibold'>Release Date</h5>
                 <p className='text-sm text-red-700'>{singleGame.release_date}</p>
               </div>
               <div className='flex flex-col'>
-                <h5>Status</h5>
+                <h5 className='font-semibold'>Status</h5>
                 <p className='text-sm text-red-700'>{singleGame.status}</p>
               </div>
             </div>
@@ -95,23 +95,23 @@ const Game = () => {
                 </p>
               </div>
               <div>
-                <h5>Memory:</h5>
+                <h5 className='font-semibold'>Memory:</h5>
                 <p className='text-sm text-red-700'>
                   {singleGame.minimum_system_requirements?.memory}
                 </p>
               </div>
               <div>
-                <h5>OS:</h5>
+                <h5 className='font-semibold'>OS:</h5>
                 <p className='text-sm text-red-700'>{singleGame.minimum_system_requirements?.os}</p>
               </div>
               <div>
-                <h5>Processor:</h5>
+                <h5 className='font-semibold'>Processor:</h5>
                 <p className='text-sm text-red-700'>
                   {singleGame.minimum_system_requirements?.processor}
                 </p>
               </div>
               <div>
-                <h5>Storage:</h5>
+                <h5 className='font-semibold'>Storage:</h5>
                 <p className='text-sm text-red-700'>
                   {singleGame.minimum_system_requirements?.storage}
                 </p>
@@ -125,5 +125,3 @@ const Game = () => {
 };
 
 export default Game;
-// doctor@topmedicalpractice.co.uk
-// doctor@topmedicalpractice.co.uk
