@@ -13,12 +13,29 @@ export async function loader() {
 const Games = () => {
   const { games } = useLoaderData() as { games: Game[] };
   const [text, setText] = useState('');
+  const [searchedGames, setSearchedGames] = useState<Game[]>(games);
+
+  const genresObj = new Set(games.map((game) => game.genre));
+  const genres = [...genresObj];
+  console.log(genres);
+
+  const filteredGames = () =>
+    games.filter((game) => {
+      const titleMatches = game.title
+        .toString()
+        .toLowerCase()
+        .replace(/\([^)]*\)/g, '')
+        .trim()
+        .includes(text);
+
+      return titleMatches;
+    });
 
   const handleClick = (e: SyntheticEvent) => {
     e.preventDefault();
-    const results = games.filter((game) => games.includes({ ...game, title: text }));
-    console.log(results);
-    return results;
+    const results = filteredGames();
+    setSearchedGames(results);
+    setText('');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,9 +44,9 @@ const Games = () => {
 
   return (
     <div className='container mx-auto'>
-      <Search text={text} handleClick={handleClick} handleChange={handleChange} />
       <h3>Find your next game here</h3>
-      <GameList games={games} />
+      <Search text={text} handleClick={handleClick} handleChange={handleChange} />
+      <GameList games={searchedGames} />
     </div>
   );
 };
