@@ -14,6 +14,7 @@ const Games = () => {
   const { games } = useLoaderData() as { games: Game[] };
   const [text, setText] = useState('');
   const [searchedGames, setSearchedGames] = useState<Game[]>(games);
+  const [selectedGenre, setSelectedGenre] = useState('');
 
   const genresObj = new Set(games.map((game) => game.genre));
   const genres = [...genresObj];
@@ -45,7 +46,7 @@ const Games = () => {
   return (
     <div className='container mx-auto'>
       <h3>Find your next game here</h3>
-      <Search text={text} handleClick={handleClick} handleChange={handleChange} />
+      <Search text={text} handleClick={handleClick} handleChange={handleChange} genres={genres} />
       <GameList games={searchedGames} />
     </div>
   );

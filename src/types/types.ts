@@ -62,6 +62,7 @@ export type ComponentProps = {
   games?: Game[];
   screenshots?: Screenshots[];
   text?: string;
+  genres?: string[];
   handleClick?: (e: SyntheticEvent) => void;
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

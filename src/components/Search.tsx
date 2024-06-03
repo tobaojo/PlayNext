@@ -1,6 +1,6 @@
 import { type ComponentProps } from '../types/types';
 
-const Search = ({ text, handleChange, handleClick }: ComponentProps) => {
+const Search = ({ text, handleChange, handleClick, genres }: ComponentProps) => {
   return (
     <div>
       <input
@@ -12,6 +12,13 @@ const Search = ({ text, handleChange, handleClick }: ComponentProps) => {
         value={text}
         onChange={handleChange}
       />
+      <select>
+        {genres?.map((genre, i) => (
+          <option value={genre} key={i}>
+            {genre}
+          </option>
+        ))}
+      </select>
       <button onClick={handleClick}>Search</button>
     </div>
   );
