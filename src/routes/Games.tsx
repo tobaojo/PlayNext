@@ -2,7 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import { getAllGames } from '../api/api';
 import { type Game } from '../types/types';
 import GameList from '../components/GameList';
-import { SyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 import Search from '../components/Search';
 
 export async function loader() {
@@ -18,7 +18,6 @@ const Games = () => {
 
   const genresObj = new Set(games.map((game) => game.genre));
   const genres = [...genresObj];
-  console.log(genres);
 
   const filteredGames = () =>
     games.filter((game) => {
@@ -29,24 +28,44 @@ const Games = () => {
         .trim()
         .includes(text);
 
-      return titleMatches;
-    });
+      if (selectedGenre === 'all') {
+        return games;
+      }
 
-  const handleClick = (e: SyntheticEvent) => {
-    e.preventDefault();
-    const results = filteredGames();
-    setSearchedGames(results);
-    setText('');
-  };
+      const genreMatches =
+        selectedGenre === '' ||
+        game.genre
+          .toString()
+          .toLowerCase()
+          .replace(/\([^)]*\)/g, '')
+          .includes(selectedGenre.toLowerCase());
+
+      return titleMatches && genreMatches;
+    });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
+  const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setSelectedGenre(e.target.value);
+
+  const handleSelect = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const results = filteredGames();
+    setSearchedGames(results);
+  };
+
   return (
     <div className='container mx-auto'>
       <h3>Find your next game here</h3>
-      <Search text={text} handleClick={handleClick} handleChange={handleChange} genres={genres} />
+      <Search
+        text={text}
+        handleChange={handleChange}
+        genres={genres}
+        handleSelect={handleSelect}
+        handleGenreChange={handleGenreChange}
+      />
       <GameList games={searchedGames} />
     </div>
   );

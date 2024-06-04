@@ -65,6 +65,8 @@ export type ComponentProps = {
   genres?: string[];
   handleClick?: (e: SyntheticEvent) => void;
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelect?: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleGenreChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export type Colours = {
