@@ -14,8 +14,8 @@ const genreColors: Colours = {
 
 const GameList = ({ games }: ComponentProps) => {
   return (
-    <div className='container mx-auto'>
-      <div className='flex flex-col space-y-6 items-center md:grid md:grid-cols-3 md:gap-2 md:divide-y-0 '>
+    <div className='container mx-auto '>
+      <div className='flex flex-col space-y-6 items-baseline md:grid md:grid-cols-3 md:gap-2 md:divide-y-0 md:p-1'>
         {games ? (
           games.map((game) => {
             const colorGenre = genreColors[game.genre] || 'bg-gray-700';

@@ -16,7 +16,7 @@ const HeroSection = ({ news }: ComponentProps) => {
               <img
                 src={firstArticle?.main_image}
                 alt={firstArticle?.main_image}
-                className='hover:cursor-pointer'
+                className='hover:cursor-pointer hover:opacity-90'
               />
               <div className='absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2'>
                 <p className='p-5 text-slate-200 font-bold hover:decoration-solid hover:cursor-pointer'>
@@ -30,7 +30,11 @@ const HeroSection = ({ news }: ComponentProps) => {
             {otherArticles.map((article) => (
               <div className='relative' key={article.id}>
                 <Link to={`article/${article.id}`}>
-                  <img src={article?.main_image} alt='' className='hover:cursor-pointer' />
+                  <img
+                    src={article?.main_image}
+                    alt=''
+                    className='hover:cursor-pointer hover:opacity-90'
+                  />
                   <div className='absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2'>
                     <p className='p-1 text-slate-200 font-bold hover:underline hover:decoration-solid hover:cursor-pointer'>
                       {article?.short_description}

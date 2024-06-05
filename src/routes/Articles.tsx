@@ -4,6 +4,7 @@ import { type News } from '../types/types';
 import HeroSection from '../components/HeroSection';
 import EditorsPicks from '../components/EditorsPicks';
 import OtherArticles from '../components/OtherArticles';
+import Footer from '../components/Footer';
 
 export async function loader() {
   const news = await getGamesNews();
@@ -18,6 +19,7 @@ const Articles = () => {
       <HeroSection news={news} />
       <EditorsPicks news={news} />
       <OtherArticles news={news} />
+      <Footer />
     </>
   );
 };

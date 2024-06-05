@@ -4,6 +4,7 @@ import { type Game } from '../types/types';
 import GameList from '../components/GameList';
 import { useState } from 'react';
 import Search from '../components/Search';
+import Footer from '../components/Footer';
 
 export async function loader() {
   const games = await getAllGames();
@@ -26,7 +27,7 @@ const Games = () => {
         .toLowerCase()
         .replace(/\([^)]*\)/g, '')
         .trim()
-        .includes(text);
+        .includes(text.toLowerCase());
 
       if (selectedGenre === 'all') {
         return games;
@@ -57,17 +58,20 @@ const Games = () => {
   };
 
   return (
-    <div className='container mx-auto'>
-      <h3>Find your next game here</h3>
-      <Search
-        text={text}
-        handleChange={handleChange}
-        genres={genres}
-        handleSelect={handleSelect}
-        handleGenreChange={handleGenreChange}
-      />
-      <GameList games={searchedGames} />
-    </div>
+    <>
+      <div className='container mx-auto'>
+        <h3>Find your next game here</h3>
+        <Search
+          text={text}
+          handleChange={handleChange}
+          genres={genres}
+          handleSelect={handleSelect}
+          handleGenreChange={handleGenreChange}
+        />
+        <GameList games={searchedGames} />
+      </div>
+      <Footer />
+    </>
   );
 };
 

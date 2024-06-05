@@ -8,17 +8,22 @@ const Search = ({
   handleGenreChange,
 }: ComponentProps) => {
   return (
-    <form onSubmit={handleSelect}>
+    <form onSubmit={handleSelect} className='mx-auto flex flex-col md:flex-row'>
       <input
         type='text'
         name='search'
         id='search'
-        className='border-2 border-slate-700'
+        className='mx-auto border-2 border-slate-400 rounded-lg p-1 m-1 items-center w-4/5 md:w-1/4 md:mx-1'
         placeholder='Search for title'
         value={text}
         onChange={handleChange}
       />
-      <select name='genres' defaultValue={''} onChange={handleGenreChange}>
+      <select
+        name='genres'
+        defaultValue={''}
+        onChange={handleGenreChange}
+        className=' mx-auto border-2 border-slate-400 rounded-lg p-1 m-1 items-center w-4/5 md:w-1/4 md:mx-1'
+      >
         <option value={'all'}>All</option>
         {genres?.map((genre, i) => (
           <option value={genre} key={i}>
@@ -26,7 +31,12 @@ const Search = ({
           </option>
         ))}
       </select>
-      <button type={'submit'}>Search</button>
+      <button
+        type={'submit'}
+        className='mx-auto border-2 bg-blue-600 text-white rounded-lg p-1 m-1 items-center w-4/5 md:w-1/5 md:mx-1'
+      >
+        Search
+      </button>
     </form>
   );
 };

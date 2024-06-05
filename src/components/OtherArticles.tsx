@@ -10,8 +10,13 @@ const OtherArticles = ({ news }: ComponentProps) => {
           news.map((article) => (
             <Link to={`article/${article.id}`} key={article.id} className='w-full items- mx-auto'>
               <div className='m-2 hover:cursor-pointer'>
-                <img src={article.main_image} className='w-full md:w-9/12 items-center' />
-                <p className='hover:text-red-500 text-left'>{article.short_description}</p>
+                <img
+                  src={article.main_image}
+                  className='w-full md:w-9/12 items-center hover:opacity-90'
+                />
+                <p className='hover:text-red-500 text-left mr-6 text-lg'>
+                  {article.short_description}
+                </p>
               </div>
             </Link>
           ))}

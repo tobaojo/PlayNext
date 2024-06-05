@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import parse, { DOMNode, domToReact, HTMLReactParserOptions, Element } from 'html-react-parser';
 import { type News } from '../types/types';
 import { getGamesNews, getSingleGameNews } from '../api/api';
+import Footer from '../components/Footer';
 
 const options: HTMLReactParserOptions = {
   replace: (domNode: DOMNode) => {
@@ -64,13 +65,16 @@ const Article = () => {
   const { singleArticle } = useLoaderData() as { singleArticle: News };
   if (isArticle(singleArticle)) {
     return (
-      <div className='container mx-auto'>
-        <div className='m-4'>
-          <small>News</small>
-          <h3 className='mb-10 font-bold text-3xl'>{singleArticle.short_description}</h3>
+      <>
+        <div className='container mx-auto'>
+          <div className='m-4'>
+            <small>News</small>
+            <h3 className='mb-10 font-bold text-3xl'>{singleArticle.short_description}</h3>
+          </div>
+          <div className='m-4'>{parse(singleArticle.article_content, options)}</div>
         </div>
-        <div className='m-4'>{parse(singleArticle.article_content, options)}</div>
-      </div>
+        <Footer />
+      </>
     );
   }
 };
