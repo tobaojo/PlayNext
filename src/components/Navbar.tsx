@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Hamburger from './Hamburger';
 
 const Navbar = () => {
   return (
@@ -19,6 +20,7 @@ const Navbar = () => {
             Games
           </Link>
         </div>
+        <Hamburger />
       </div>
     </nav>
   );

@@ -25,8 +25,6 @@ const GameSwiper = ({ screenshots }: ComponentProps) => {
         disableOnInteraction: false,
       }}
       slidesPerView={2}
-      onSlideChange={() => console.log('slide changed')}
-      onSwiper={(swiper) => console.log(swiper)}
       className='mx-auto flex flex-col'
     >
       {screenshots.map((screenshot) => {

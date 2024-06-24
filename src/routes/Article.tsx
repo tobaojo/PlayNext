@@ -1,7 +1,8 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import parse, { DOMNode, domToReact, HTMLReactParserOptions, Element } from 'html-react-parser';
 import { type News } from '../types/types';
 import { getGamesNews, getSingleGameNews } from '../api/api';
+import IconArrowLeft from '../components/LeftArrow';
 import Footer from '../components/Footer';
 
 const options: HTMLReactParserOptions = {
@@ -63,12 +64,18 @@ export async function loader({ params }: { params: { articleId: string } }) {
 
 const Article = () => {
   const { singleArticle } = useLoaderData() as { singleArticle: News };
+  const navigate = useNavigate();
   if (isArticle(singleArticle)) {
     return (
       <>
         <div className='container mx-auto'>
           <div className='m-4'>
-            <small>News</small>
+            <div>
+              <button onClick={() => navigate(-1)} className='flex items-center hover:text-red-700'>
+                <IconArrowLeft /> <p>Go back</p>
+              </button>
+            </div>
+            <small className='m-1 text-red-700'>News</small>
             <h3 className='mb-10 font-bold text-3xl'>{singleArticle.short_description}</h3>
           </div>
           <div className='m-4'>{parse(singleArticle.article_content, options)}</div>

@@ -1,7 +1,8 @@
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { getSingleGame, getAllGames } from '../api/api';
 import { type Game } from '../types/types';
 import GameSwiper from '../components/GameSwiper';
+import IconArrowLeft from '../components/LeftArrow';
 import Footer from '../components/Footer';
 
 export async function loader({ params }: { params: { gameId: string } }) {
@@ -11,17 +12,24 @@ export async function loader({ params }: { params: { gameId: string } }) {
     return;
   } else {
     const singleGame = await getSingleGame(parseInt(params.gameId));
-    console.log(singleGame);
     return { singleGame };
   }
 }
 
 const Game = () => {
+  const navigate = useNavigate();
   const { singleGame } = useLoaderData() as { singleGame: Game };
   return (
     <>
-      {' '}
       <div className='container mx-auto'>
+        <div>
+          <button
+            onClick={() => navigate(-1)}
+            className='flex items-center mx-6 hover:text-red-700'
+          >
+            <IconArrowLeft /> <p>Go back</p>
+          </button>
+        </div>
         <div className='flex flex-col space-y-8 m-4'>
           <div className='flex flex-col space-y-2 md:flex-row p-2 border-slate-400 space-x-5'>
             <div>

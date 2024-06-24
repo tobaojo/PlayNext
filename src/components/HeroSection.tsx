@@ -9,7 +9,7 @@ const HeroSection = ({ news }: ComponentProps) => {
   const otherArticles = news.slice(1, 5);
   return (
     <>
-      <div className='container mx-auto'>
+      <div className='container mx-auto p-5 md:p-1'>
         <div className='flex flex-col items-center md:flex-row md:p-0'>
           <div className='relative md:w-6/12'>
             <Link to={`article/${firstArticle.id}`}>
