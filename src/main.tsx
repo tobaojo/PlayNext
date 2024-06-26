@@ -7,6 +7,7 @@ import Games, { loader as gamesLoader } from './routes/Games.tsx';
 import Articles, { loader as articleLoader } from './routes/Articles.tsx';
 import Article, { loader as SingleArticleLoader } from './routes/Article.tsx';
 import Game, { loader as singleGameLoader } from './routes/Game.tsx';
+import Playlist from './routes/Playlist.tsx';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
         element: <Game />,
         errorElement: <ErrorPage />,
         loader: singleGameLoader,
+      },
+      {
+        path: 'playlist',
+        element: <Playlist />,
+        errorElement: <ErrorPage />,
       },
     ],
   },

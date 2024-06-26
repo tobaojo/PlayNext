@@ -19,6 +19,9 @@ const Navbar = () => {
           <Link to='games' className='text-xl hover:text-red-900 text-slate-500'>
             Games
           </Link>
+          <Link to='playlist' className='text-xl hover:text-red-900 text-slate-500'>
+            Playlists
+          </Link>
         </div>
         <Hamburger />
       </div>

@@ -66,3 +66,7 @@ export async function getSingleGame(id: number) {
     return message;
   }
 }
+
+export const getPlaylistFromStorage = () => {
+  localStorage.getItem('playlist');
+};
