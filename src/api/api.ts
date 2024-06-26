@@ -66,7 +66,19 @@ export async function getSingleGame(id: number) {
     return message;
   }
 }
+export const createPlaylistInStorage = () => {
+  return localStorage.setItem('playlists', JSON.stringify([]));
+};
 
-export const getPlaylistFromStorage = () => {
-  localStorage.getItem('playlist');
+export const checkPlaylistInStorage = () => {
+  const playlists = localStorage.getItem('playlists');
+  return playlists ? JSON.parse(playlists) : null;
+};
+
+export const saveToStorage = (item: { name: string; data: Game[] }) => {
+  if (!checkPlaylistInStorage()) {
+    createPlaylistInStorage();
+    const playlist = checkPlaylistInStorage();
+    return playlist;
+  }
 };
