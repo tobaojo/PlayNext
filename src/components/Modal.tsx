@@ -15,11 +15,11 @@ const ModalElement = ({ setModalIsOpen, modalIsOpen, children }) => {
   const closeModal = () => setModalIsOpen(false);
 
   return (
-    <div>
+    <>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
         {children}
       </Modal>
-    </div>
+    </>
   );
 };
 

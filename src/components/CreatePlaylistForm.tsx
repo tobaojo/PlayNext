@@ -1,19 +1,25 @@
 import { useState } from 'react';
-import { saveToStorage, checkPlaylistInStorage, createPlaylistInStorage } from '../api/api';
+import { saveToStorage } from '../api/api';
+import { Game } from '../types/types';
 
-const CreatePlaylistForm = ({ playlists, setPlaylists }) => {
+const CreatePlaylistForm = ({ setPlaylists, onClose }) => {
   const [playlistName, setPlaylistName] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const newPlaylist = {
+    const newPlaylist: { id: number; name: string; data: Game[] } = {
+      id: Math.floor(Math.random() * 10000),
       name: playlistName,
       data: [],
     };
-    const result = saveToStorage(playlists);
-    setPlaylists(result);
-    console.log(playlists);
+    setPlaylists((prevPlaylists) => {
+      const updatedPlaylists: Game[] = [...prevPlaylists, newPlaylist];
+      saveToStorage(updatedPlaylists);
+      return updatedPlaylists;
+    });
+
     setPlaylistName('');
+    onClose();
   };
 
   return (

@@ -1,5 +1,8 @@
-import { type ComponentProps, type Colours } from '../types/types';
+import { useState } from 'react';
+import { type ComponentProps, type Colours, Game } from '../types/types';
 import { Link } from 'react-router-dom';
+import GameToAdd from './GameToAdd';
+import ModalElement from './Modal';
 
 const genreColors: Colours = {
   Shooter: 'bg-red-700',
@@ -13,6 +16,16 @@ const genreColors: Colours = {
 };
 
 const GameList = ({ games }: ComponentProps) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [seletedGame, setSelectedGame] = useState<Game>(null);
+
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
+
+  const handleClick = (game: Game[]) => {
+    setSelectedGame(game);
+    openModal();
+  };
   return (
     <div className='container mx-auto'>
       <div className='flex flex-col space-y-6 items-center md:grid md:grid-cols-3 md:gap-2 md:divide-y-0 md:p-1 md:items-baseline'>
@@ -20,27 +33,39 @@ const GameList = ({ games }: ComponentProps) => {
           games.map((game) => {
             const colorGenre = genreColors[game.genre] || 'bg-gray-700';
             return (
-              <Link to={`/${game.id}`} key={game.id}>
-                <div className='hover:cursor-pointer'>
-                  <div className='space-y-2'>
-                    <img src={game.thumbnail} alt='' className='' />
-                  </div>
-                  <div className='items-center'>
-                    <small
-                      className={`justify-self-end ${colorGenre} text-white rounded-full px-2 py-0.5`}
-                    >
-                      {game.genre}
-                    </small>
-                    <h4>{game.title}</h4>
+              <>
+                <div key={game.id}>
+                  <div className='hover:cursor-pointer'>
+                    <Link to={`/game/${game.id}`}>
+                      <div className='space-y-2'>
+                        <img src={game.thumbnail} alt='' className='' />
+                      </div>
+                    </Link>
+                    <div className='items-center'>
+                      <small
+                        className={`justify-self-end ${colorGenre} text-white rounded-full px-2 py-0.5`}
+                      >
+                        {game.genre}
+                      </small>
+                      <div className='flex w-3/4 justify-between'>
+                        <h4>{game.title}</h4>
+                        <button className='' onClick={() => handleClick(game)}>
+                          +
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </Link>
+              </>
             );
           })
         ) : (
           <p>Could not load games</p>
         )}
       </div>
+      <ModalElement setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen}>
+        {seletedGame && <GameToAdd game={seletedGame} />}
+      </ModalElement>
     </div>
   );
 };

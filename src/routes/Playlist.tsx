@@ -1,32 +1,11 @@
-import ModalElement from '../components/Modal';
-import CreatePlaylistForm from '../components/CreatePlaylistForm';
-import { checkPlaylistInStorage } from '../api/api';
-import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Playlist = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [playlists, setPlaylists] = useState(checkPlaylistInStorage());
-  console.log(playlists);
+  const location = useLocation();
+  const { playlist } = location.state || {};
 
-  const openModal = () => setModalIsOpen(true);
-
-  const closeModal = () => setModalIsOpen(false);
-
-  return (
-    <div>
-      <div>
-        <p>View and manage your playlists</p>
-        <button onClick={openModal}>Create</button>
-        <div></div>
-        <ModalElement setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen}>
-          <div>
-            <button onClick={closeModal}>Close</button>
-            <CreatePlaylistForm playlists={playlists} setPlaylists={setPlaylists} />
-          </div>
-        </ModalElement>
-      </div>
-    </div>
-  );
+  console.log(playlist);
+  return <div>Playlist</div>;
 };
 
 export default Playlist;
