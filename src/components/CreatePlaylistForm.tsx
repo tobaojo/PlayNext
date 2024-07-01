@@ -29,18 +29,16 @@ const CreatePlaylistForm: FC<CreatePlaylistFormProps> = ({ setPlaylists, onClose
   return (
     <form onSubmit={handleSubmit}>
       <h2>Create a playlist</h2>
-      <form>
-        <label htmlFor='name'>
-          Playlist Name
-          <input
-            type='text'
-            onChange={(e) => setPlaylistName(e.target.value)}
-            placeholder='Playlist name...'
-            value={playlistName}
-          />
-        </label>
-        <button type='submit'>Create</button>
-      </form>
+      <label htmlFor='name'>
+        Playlist Name
+        <input
+          type='text'
+          onChange={(e) => setPlaylistName(e.target.value)}
+          placeholder='Playlist name...'
+          value={playlistName}
+        />
+      </label>
+      <button type='submit'>Create</button>
     </form>
   );
 };

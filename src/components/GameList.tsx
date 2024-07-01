@@ -24,6 +24,7 @@ const GameList: FC<GameListProps> = ({ games }) => {
   const [seletedGame, setSelectedGame] = useState<Game | null>(null);
 
   const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
 
   const handleClick = (game: Game) => {
     if (!game) {
@@ -40,30 +41,28 @@ const GameList: FC<GameListProps> = ({ games }) => {
           games.map((game) => {
             const colorGenre = genreColors[game.genre] || 'bg-gray-700';
             return (
-              <>
-                <div key={game.id}>
-                  <div className='hover:cursor-pointer'>
-                    <Link to={`/game/${game.id}`}>
-                      <div className='space-y-2'>
-                        <img src={game.thumbnail} alt='' className='' />
-                      </div>
-                    </Link>
-                    <div className='items-center'>
-                      <small
-                        className={`justify-self-end ${colorGenre} text-white rounded-full px-2 py-0.5`}
-                      >
-                        {game.genre}
-                      </small>
-                      <div className='flex w-3/4 justify-between'>
-                        <h4>{game.title}</h4>
-                        <button className='' onClick={() => handleClick(game)}>
-                          +
-                        </button>
-                      </div>
+              <div key={game.id}>
+                <div className='hover:cursor-pointer'>
+                  <Link to={`/game/${game.id}`}>
+                    <div className='space-y-2'>
+                      <img src={game.thumbnail} alt='' className='' />
+                    </div>
+                  </Link>
+                  <div className='items-center'>
+                    <small
+                      className={`justify-self-end ${colorGenre} text-white rounded-full px-2 py-0.5`}
+                    >
+                      {game.genre}
+                    </small>
+                    <div className='flex w-3/4 justify-between'>
+                      <h4>{game.title}</h4>
+                      <button className='' onClick={() => handleClick(game)}>
+                        +
+                      </button>
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             );
           })
         ) : (
@@ -71,7 +70,7 @@ const GameList: FC<GameListProps> = ({ games }) => {
         )}
       </div>
       <ModalElement setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen}>
-        {seletedGame && <GameToAdd game={seletedGame} />}
+        {seletedGame && <GameToAdd game={seletedGame} closeModal={closeModal} />}
       </ModalElement>
     </div>
   );

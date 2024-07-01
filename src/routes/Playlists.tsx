@@ -1,7 +1,7 @@
 import ModalElement from '../components/Modal';
 import CreatePlaylistForm from '../components/CreatePlaylistForm';
 import PlaylistCard from '../components/PlaylistCard';
-import { checkPlaylistInStorage } from '../api/api';
+import { checkPlaylistInStorage, saveToStorage } from '../api/api';
 import { useState } from 'react';
 import { Playlist } from '../types/types';
 
@@ -12,6 +12,12 @@ const Playlists = () => {
   const openModal = () => setModalIsOpen(true);
 
   const closeModal = () => setModalIsOpen(false);
+
+  const deletePlaylist = (deletedPlaylist: Playlist) => {
+    const filteredPlaylist = playlists.filter((playlist) => playlist.id !== deletedPlaylist.id);
+    setPlaylists(filteredPlaylist);
+    saveToStorage(filteredPlaylist);
+  };
 
   return (
     <div className='container mx-auto'>
@@ -25,7 +31,9 @@ const Playlists = () => {
       <div className='flex flex-col space-y-6 items-center md:grid md:grid-cols-3 md:gap-2 md:divide-y-0 md:p-1 md:items-baseline'>
         {playlists.length > 0 ? (
           playlists.map((playlist) => {
-            return <PlaylistCard key={playlist.id} playlist={playlist} />;
+            return (
+              <PlaylistCard key={playlist.id} playlist={playlist} deletePlaylist={deletePlaylist} />
+            );
           })
         ) : (
           <p>No Playlists, Please create one</p>

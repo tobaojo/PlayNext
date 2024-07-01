@@ -1,9 +1,14 @@
 import { checkPlaylistInStorage, saveToStorage } from '../api/api';
-import { useState } from 'react';
-import { Game, ComponentProps } from '../types/types';
+import { useState, FC, Dispatch, SetStateAction } from 'react';
+import { Game, Playlist } from '../types/types';
 
-const GameToAdd = ({ game }: ComponentProps) => {
-  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+type GameToAddProps = {
+  game: Game;
+  closeModal: Dispatch<SetStateAction<boolean>>;
+};
+
+const GameToAdd: FC<GameToAddProps> = ({ game, closeModal }) => {
+  const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(null);
   const [playlists, setPlaylists] = useState(checkPlaylistInStorage());
 
   const addToPlaylist = (game: Game) => {
@@ -11,26 +16,36 @@ const GameToAdd = ({ game }: ComponentProps) => {
       console.log('please select a playlist');
       return;
     }
-    const updatedPlaylist = selectedPlaylist?.data.push(game);
 
-    setPlaylists((prevPlaylists) => {
-      const updatedPlaylists = [...prevPlaylists, updatedPlaylist];
+    if (selectedPlaylist.data.some((item) => item.title === game.title)) {
+      console.log('game already in playlist');
+      return;
+    }
+    const updatedData = [...selectedPlaylist.data, game];
+    const updatedPlaylist = { ...selectedPlaylist, data: updatedData };
+
+    setPlaylists((prevPlaylists: Playlist[]) => {
+      const updatedPlaylists = prevPlaylists.map((playlist) =>
+        playlist.id === selectedPlaylist.id ? updatedPlaylist : playlist,
+      );
+      setPlaylists(updatedPlaylists);
+      saveToStorage(updatedPlaylists);
       return updatedPlaylists;
     });
-    saveToStorage(playlists);
-    return;
+    closeModal(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const foundPlaylist = playlists.find((playlist) => playlist.name === e.target.value);
-    setSelectedPlaylist(foundPlaylist);
+    setSelectedPlaylist(foundPlaylist || null);
   };
 
   return (
     <div>
       <h5>{game && game.title}</h5>
       <h3>Add to playlist</h3>
-      <select name='playlists' id='' onChange={handleChange}>
+      <select name='playlists' id='' onChange={handleChange} value={selectedPlaylist?.name || ''}>
+        <option value=''>Select a playlist</option>
         {playlists &&
           playlists.map((playlist) => {
             return (

@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 type GameSwiperProps = {
-  screenshots: Screenshots[];
+  screenshots?: Screenshots[];
 };
 
 const GameSwiper: FC<GameSwiperProps> = ({ screenshots }) => {
