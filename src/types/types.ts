@@ -6,15 +6,6 @@ const screenshotSchema = z.object({
   image: z.string(),
 });
 
-// const minimumRequirements = z.object({
-//   graphics: z.string(),
-//   memory: z.string(),
-//   processor: z.string(),
-//   os: z.string(),
-//   storage: z.string(),
-//   strip: z.string().optional(),
-// });
-
 export type Screenshots = z.infer<typeof screenshotSchema>;
 
 export const gameSchema = z.object({
@@ -60,6 +51,7 @@ export type News = z.infer<typeof newsSchema>;
 export type ComponentProps = {
   news?: News[];
   games?: Game[];
+  game?: Game;
   screenshots?: Screenshots[];
   text?: string;
   genres?: string[];
@@ -72,3 +64,5 @@ export type ComponentProps = {
 export type Colours = {
   [key: string]: string;
 };
+
+export type Playlist = { id: number; name: string; data: Game[] };

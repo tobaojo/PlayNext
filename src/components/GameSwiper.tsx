@@ -1,12 +1,17 @@
+import { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
-import { type ComponentProps } from '../types/types';
+import { type Screenshots } from '../types/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-const GameSwiper = ({ screenshots }: ComponentProps) => {
+type GameSwiperProps = {
+  screenshots: Screenshots[];
+};
+
+const GameSwiper: FC<GameSwiperProps> = ({ screenshots }) => {
   if (!screenshots) {
     return (
       <div>

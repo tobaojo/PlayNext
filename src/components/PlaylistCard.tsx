@@ -1,6 +1,11 @@
+import { FC } from 'react';
+import { type Playlist } from '../types/types';
 import { Link } from 'react-router-dom';
 
-const PlaylistCard = ({ playlist }) => {
+type PlaylistCardProps = {
+  playlist: Playlist;
+};
+const PlaylistCard: FC<PlaylistCardProps> = ({ playlist }) => {
   return (
     <Link
       to={`/playlist/${playlist.id}`}
@@ -10,7 +15,9 @@ const PlaylistCard = ({ playlist }) => {
       <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
         {playlist.name}
       </h5>
-      <p className='font-normal text-gray-700 dark:text-gray-400'>Games: {playlist.data.length}</p>
+      <p className='font-normal text-gray-700 dark:text-gray-400'>
+        Games: {playlist?.data?.length}
+      </p>
     </Link>
   );
 };

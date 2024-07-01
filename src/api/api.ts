@@ -1,4 +1,4 @@
-import { gameSchema, newsSchema, type Game, type News } from '../types/types';
+import { gameSchema, newsSchema, type Game, type News, type Playlist } from '../types/types';
 import { freeToGameOptions, options } from '../../options.ts';
 
 export async function getAllGames() {
@@ -67,15 +67,19 @@ export async function getSingleGame(id: number) {
   }
 }
 
-export const checkPlaylistInStorage = () => {
+export const checkPlaylistInStorage = (): Playlist[] => {
   const playlists = localStorage.getItem('playlists');
-  return playlists ? JSON.parse(playlists) : [];
+  if (!playlists) {
+    return [];
+  }
+  try {
+    return JSON.parse(playlists) as Playlist[];
+  } catch (error) {
+    console.error('Error Parsing playlists');
+    return [];
+  }
 };
 
-export const saveToStorage = (playlists: Game[]) => {
+export const saveToStorage = (playlists: Playlist[]) => {
   localStorage.setItem('playlists', JSON.stringify(playlists));
 };
-
-// export const getPlaylistsFromStorage = () => {
-//   const pla
-// }

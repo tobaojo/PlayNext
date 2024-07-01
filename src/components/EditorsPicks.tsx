@@ -1,7 +1,12 @@
-import { type ComponentProps } from '../types/types';
+import { FC } from 'react';
+import { type News } from '../types/types';
 import { Link } from 'react-router-dom';
 
-const EditorsPicks = ({ news }: ComponentProps) => {
+type EditorsPicksProps = {
+  news: News[];
+};
+
+const EditorsPicks: FC<EditorsPicksProps> = ({ news }) => {
   const editorsPicks = news?.slice(1, 7);
   return (
     <div className='container mx-auto border-t-2 mt-9 border-slate-400 '>

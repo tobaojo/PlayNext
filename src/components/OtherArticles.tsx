@@ -1,7 +1,12 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { type ComponentProps } from '../types/types';
+import { type News } from '../types/types';
 
-const OtherArticles = ({ news }: ComponentProps) => {
+type OtherArticlesProps = {
+  news: News[];
+};
+
+const OtherArticles: FC<OtherArticlesProps> = ({ news }) => {
   return (
     <div className='container mx-auto'>
       <h3 className='font-bold text-2xl border-t-2 mt-9 border-slate-400'>Other Articles</h3>

@@ -1,6 +1,13 @@
+import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import Modal from 'react-modal';
 
-const ModalElement = ({ setModalIsOpen, modalIsOpen, children }) => {
+type ModalElementProps = {
+  setModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  modalIsOpen: boolean;
+  children: ReactNode;
+};
+
+const ModalElement: FC<ModalElementProps> = ({ setModalIsOpen, modalIsOpen, children }) => {
   const customStyles = {
     content: {
       top: '50%',

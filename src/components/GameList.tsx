@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { type ComponentProps, type Colours, Game } from '../types/types';
+import { FC, useState } from 'react';
+import { type Colours, Game } from '../types/types';
 import { Link } from 'react-router-dom';
 import GameToAdd from './GameToAdd';
 import ModalElement from './Modal';
@@ -15,14 +15,21 @@ const genreColors: Colours = {
   // Add more genres and their corresponding colors here
 };
 
-const GameList = ({ games }: ComponentProps) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [seletedGame, setSelectedGame] = useState<Game>(null);
+type GameListProps = {
+  games: Game[];
+};
+
+const GameList: FC<GameListProps> = ({ games }) => {
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [seletedGame, setSelectedGame] = useState<Game | null>(null);
 
   const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
 
-  const handleClick = (game: Game[]) => {
+  const handleClick = (game: Game) => {
+    if (!game) {
+      console.log('please select a game');
+      return;
+    }
     setSelectedGame(game);
     openModal();
   };

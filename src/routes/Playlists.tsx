@@ -3,10 +3,11 @@ import CreatePlaylistForm from '../components/CreatePlaylistForm';
 import PlaylistCard from '../components/PlaylistCard';
 import { checkPlaylistInStorage } from '../api/api';
 import { useState } from 'react';
+import { Playlist } from '../types/types';
 
 const Playlists = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [playlists, setPlaylists] = useState(checkPlaylistInStorage());
+  const [playlists, setPlaylists] = useState<Playlist[]>(checkPlaylistInStorage());
 
   const openModal = () => setModalIsOpen(true);
 

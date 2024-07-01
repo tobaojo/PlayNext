@@ -1,7 +1,12 @@
-import { type ComponentProps } from '../types/types';
+import { FC } from 'react';
+import { type News } from '../types/types';
 import { Link } from 'react-router-dom';
 
-const HeroSection = ({ news }: ComponentProps) => {
+type HeroSectionProps = {
+  news: News[];
+};
+
+const HeroSection: FC<HeroSectionProps> = ({ news }) => {
   if (!news) {
     return <div>Could not load articles</div>;
   }

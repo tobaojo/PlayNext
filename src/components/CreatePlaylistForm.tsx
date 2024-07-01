@@ -1,19 +1,23 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { saveToStorage } from '../api/api';
-import { Game } from '../types/types';
+import { Game, Playlist } from '../types/types';
 
-const CreatePlaylistForm = ({ setPlaylists, onClose }) => {
+type CreatePlaylistFormProps = {
+  setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
+  onClose: () => void;
+};
+const CreatePlaylistForm: FC<CreatePlaylistFormProps> = ({ setPlaylists, onClose }) => {
   const [playlistName, setPlaylistName] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newPlaylist: { id: number; name: string; data: Game[] } = {
       id: Math.floor(Math.random() * 10000),
       name: playlistName,
       data: [],
     };
-    setPlaylists((prevPlaylists) => {
-      const updatedPlaylists: Game[] = [...prevPlaylists, newPlaylist];
+    setPlaylists((prevPlaylists: Playlist[]) => {
+      const updatedPlaylists: Playlist[] = [...prevPlaylists, newPlaylist];
       saveToStorage(updatedPlaylists);
       return updatedPlaylists;
     });
@@ -23,7 +27,7 @@ const CreatePlaylistForm = ({ setPlaylists, onClose }) => {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2>Create a playlist</h2>
       <form>
         <label htmlFor='name'>
@@ -35,9 +39,9 @@ const CreatePlaylistForm = ({ setPlaylists, onClose }) => {
             value={playlistName}
           />
         </label>
-        <input type='submit' value='Create' onClick={handleSubmit} />
+        <button type='submit'>Create</button>
       </form>
-    </div>
+    </form>
   );
 };
 
