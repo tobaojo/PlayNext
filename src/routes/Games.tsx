@@ -48,13 +48,15 @@ const Games = () => {
     setText(e.target.value);
   };
 
-  const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+  const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedGenre(e.target.value);
+  };
 
   const handleSelect = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const results = filteredGames();
     setSearchedGames(results);
+    setSelectedGenre('');
   };
 
   return (
