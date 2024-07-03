@@ -1,21 +1,23 @@
 import { useState, FC } from 'react';
 import { saveToStorage } from '../api/api';
-import { Game, Playlist } from '../types/types';
+import { Playlist } from '../types/types';
 
 type CreatePlaylistFormProps = {
   setPlaylists: React.Dispatch<React.SetStateAction<Playlist[]>>;
   onClose: () => void;
 };
+
 const CreatePlaylistForm: FC<CreatePlaylistFormProps> = ({ setPlaylists, onClose }) => {
   const [playlistName, setPlaylistName] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newPlaylist: { id: number; name: string; data: Game[] } = {
+    const newPlaylist: Playlist = {
       id: Math.floor(Math.random() * 10000),
       name: playlistName,
       data: [],
     };
+
     setPlaylists((prevPlaylists: Playlist[]) => {
       const updatedPlaylists: Playlist[] = [...prevPlaylists, newPlaylist];
       saveToStorage(updatedPlaylists);
