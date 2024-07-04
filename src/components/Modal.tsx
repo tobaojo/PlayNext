@@ -1,5 +1,6 @@
 import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import Modal from 'react-modal';
+import '../CSS/Modal.css';
 
 type ModalElementProps = {
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -10,12 +11,27 @@ type ModalElementProps = {
 const ModalElement: FC<ModalElementProps> = ({ setModalIsOpen, modalIsOpen, children }) => {
   const customStyles = {
     content: {
-      top: '50%',
+      top: '30%',
       left: '50%',
       right: 'auto',
       bottom: 'auto',
-      marginRight: '-50%',
+      margin: 'auto',
       transform: 'translate(-50%, -50%)',
+      border: '1px solid #ccc',
+      width: '50%',
+      background: '#fff',
+      overflow: 'auto',
+      borderRadius: '4px',
+      outline: 'none',
+      padding: '0',
+    },
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(40, 40, 40, 0.80)',
     },
   };
 
@@ -23,7 +39,12 @@ const ModalElement: FC<ModalElementProps> = ({ setModalIsOpen, modalIsOpen, chil
 
   return (
     <>
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        closeTimeoutMS={2000}
+      >
         {children}
       </Modal>
     </>

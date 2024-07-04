@@ -1,6 +1,7 @@
 import ModalElement from '../components/Modal';
 import CreatePlaylistForm from '../components/CreatePlaylistForm';
 import PlaylistCard from '../components/PlaylistCard';
+import DeletePlaylist from '../components/DeletePlaylist';
 import { checkPlaylistInStorage, saveToStorage } from '../api/api';
 import { useState } from 'react';
 import { Playlist } from '../types/types';
@@ -8,10 +9,30 @@ import { Playlist } from '../types/types';
 const Playlists = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [playlists, setPlaylists] = useState<Playlist[]>(checkPlaylistInStorage());
+  const [delelteModal, setDeleteModal] = useState(false);
+  const [playlistToDelete, setPlaylistToDelete] = useState<Playlist | null>(null);
 
   const openModal = () => setModalIsOpen(true);
 
   const closeModal = () => setModalIsOpen(false);
+
+  const openDeleteModal = (playlist: Playlist) => {
+    setPlaylistToDelete(playlist);
+    setDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setPlaylistToDelete(null);
+    setDeleteModal(false);
+  };
+
+  const checkAndDeletePlaylist = (playlist: Playlist) => {
+    if (playlist.data.length > 0) {
+      openDeleteModal(playlist);
+      return;
+    }
+    deletePlaylist(playlist);
+  };
 
   const deletePlaylist = (deletedPlaylist: Playlist) => {
     const filteredPlaylist = playlists.filter((playlist) => playlist.id !== deletedPlaylist.id);
@@ -32,18 +53,28 @@ const Playlists = () => {
         {playlists.length > 0 ? (
           playlists.map((playlist) => {
             return (
-              <PlaylistCard key={playlist.id} playlist={playlist} deletePlaylist={deletePlaylist} />
+              <PlaylistCard
+                key={playlist.id}
+                playlist={playlist}
+                deletePlaylist={checkAndDeletePlaylist}
+              />
             );
           })
         ) : (
           <p>No Playlists, Please create one</p>
         )}
       </div>
+      {delelteModal && playlistToDelete && (
+        <ModalElement setModalIsOpen={setDeleteModal} modalIsOpen={delelteModal}>
+          <DeletePlaylist
+            deletePlaylist={deletePlaylist}
+            playlist={playlistToDelete}
+            closeModal={closeDeleteModal}
+          />
+        </ModalElement>
+      )}
       <ModalElement setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen}>
-        <div>
-          <button onClick={closeModal}>Close</button>
-          <CreatePlaylistForm setPlaylists={setPlaylists} onClose={closeModal} />
-        </div>
+        <CreatePlaylistForm setPlaylists={setPlaylists} closeModal={closeModal} />
       </ModalElement>
     </div>
   );

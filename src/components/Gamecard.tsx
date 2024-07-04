@@ -6,7 +6,7 @@ import { faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 type GamecardProps = {
   game: Game;
-  handleClick: (game: Game) => void;
+  handleClick?: (game: Game) => void;
 };
 
 const genreColors: Colours = {
@@ -34,11 +34,13 @@ const Gamecard: FC<GamecardProps> = ({ game, handleClick }) => {
           </small>
           <div className='flex justify-between w-11/12'>
             <h4>{game.title}</h4>
-            <FontAwesomeIcon
-              icon={faHeartCirclePlus}
-              onClick={() => handleClick(game)}
-              className='text-red-600 hover:text-red-800'
-            />
+            {handleClick && (
+              <FontAwesomeIcon
+                icon={faHeartCirclePlus}
+                onClick={() => handleClick(game)}
+                className='text-red-600 hover:text-red-800'
+              />
+            )}
           </div>
         </div>
       </div>
