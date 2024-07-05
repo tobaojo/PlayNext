@@ -62,7 +62,9 @@ const Games = () => {
   return (
     <>
       <div className='container mx-auto'>
-        <h3>Find your next game here</h3>
+        <h3 className='text-xl w-2/3 md:w-1/2 mx-auto font-semibold text-gray-900'>
+          Find your next game here
+        </h3>
         <Search
           text={text}
           handleChange={handleChange}

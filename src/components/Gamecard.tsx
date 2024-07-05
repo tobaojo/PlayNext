@@ -22,7 +22,7 @@ const Gamecard: FC<GamecardProps> = ({ game, handleClick }) => {
   const colorGenre = genreColors[game.genre] || 'bg-gray-700';
   return (
     <div key={game.id} className='max-w-sm'>
-      <div className='hover:cursor-pointer'>
+      <div className='hover:cursor-pointer hover:opacity-80'>
         <Link to={`/game/${game.id}`}>
           <div className='space-y-2'>
             <img src={game.thumbnail} alt='' className='' />
@@ -33,7 +33,7 @@ const Gamecard: FC<GamecardProps> = ({ game, handleClick }) => {
             {game.genre}
           </small>
           <div className='flex justify-between w-11/12'>
-            <h4>{game.title}</h4>
+            <h4 className='hover:text-red-700'>{game.title}</h4>
             {handleClick && (
               <FontAwesomeIcon
                 icon={faHeartCirclePlus}
