@@ -61,8 +61,8 @@ const Games = () => {
 
   return (
     <>
-      <div className='container mx-auto'>
-        <h3 className='text-xl w-2/3 md:w-1/2 mx-auto font-semibold text-gray-900'>
+      <div className='container mx-auto '>
+        <h3 className='text-xl w-2/3 mx-auto font-semibold text-gray-900 text-center'>
           Find your next game here
         </h3>
         <Search

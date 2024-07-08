@@ -1,9 +1,14 @@
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
-import { getSingleGame, getAllGames } from '../api/api';
+import { useState } from 'react';
+import { getSingleGame, getAllGames, saveToStorage, checkPlaylistInStorage } from '../api/api';
 import { type Game } from '../types/types';
 import GameSwiper from '../components/GameSwiper';
 import IconArrowLeft from '../components/LeftArrow';
 import Footer from '../components/Footer';
+import ModalElement from '../components/Modal';
+import GameToAdd from '../components/GameToAdd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 export async function loader({ params }: { params: { gameId: string } }) {
   const games = await getAllGames();
@@ -17,8 +22,20 @@ export async function loader({ params }: { params: { gameId: string } }) {
 }
 
 const Game = () => {
+  const [playlists, setPlaylists] = useState(checkPlaylistInStorage());
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const navigate = useNavigate();
   const { singleGame } = useLoaderData() as { singleGame: Game };
+
+  const closeModal = () => setModalIsOpen(false);
+
+  const openModal = () => setModalIsOpen(true);
+
+  const handleClick = () => {
+    openModal();
+  };
+
   return (
     <>
       <div className='container mx-auto'>
@@ -64,6 +81,11 @@ const Game = () => {
                 <span>•</span>
                 <p className='text-red-700'>{singleGame.genre}</p>
               </div>
+              <FontAwesomeIcon
+                icon={faHeartCirclePlus}
+                className='text-red-700 text-2xl my-2'
+                onClick={handleClick}
+              />
             </div>
           </div>
           <p>{singleGame?.description}</p>
@@ -133,6 +155,11 @@ const Game = () => {
           </div>
         </div>
       </div>
+      {modalIsOpen && (
+        <ModalElement setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen}>
+          <GameToAdd game={singleGame} closeModal={closeModal} />
+        </ModalElement>
+      )}
       <Footer />
     </>
   );
