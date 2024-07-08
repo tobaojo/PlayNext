@@ -1,4 +1,4 @@
-import { checkPlaylistInStorage, saveToStorage } from '../api/api';
+import { saveToStorage } from '../api/api';
 import { useState, FC, Dispatch, SetStateAction } from 'react';
 import ModalElement from '../components/Modal';
 import CreatePlaylistForm from '../components/CreatePlaylistForm';
@@ -8,35 +8,34 @@ import { toast } from 'react-toastify';
 type GameToAddProps = {
   game: Game;
   closeModal: Dispatch<SetStateAction<boolean>>;
+  playlists: Playlist[];
+  setPlaylists: Dispatch<SetStateAction<Playlist[]>>;
 };
 
-const GameToAdd: FC<GameToAddProps> = ({ game, closeModal }) => {
+const GameToAdd: FC<GameToAddProps> = ({ game, closeModal, playlists, setPlaylists }) => {
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(null);
-  const [playlists, setPlaylists] = useState(checkPlaylistInStorage());
+
   const [createPlaylistModal, setCreatePlaylistModal] = useState(false);
 
   const addToPlaylist = (game: Game) => {
-    // console.log(game);
     if (!selectedPlaylist) {
       toast.warn('Please select a playlist', { autoClose: 1500 });
       return;
     }
-    // console.log(selectedPlaylist);
+
     if (selectedPlaylist.data.some((item) => item.title === game.title)) {
       toast.error(`${game.title} already in ${selectedPlaylist.name}`, { autoClose: 1500 });
       return;
     }
     const updatedData = [...selectedPlaylist.data, game];
     const updatedPlaylist = { ...selectedPlaylist, data: updatedData };
-    // console.log(updatedData);
+
     setPlaylists((prevPlaylists: Playlist[]) => {
       const updatedPlaylists = prevPlaylists.map((playlist) =>
         playlist.id === selectedPlaylist.id ? updatedPlaylist : playlist,
       );
-      console.log(updatedPlaylists);
-      setPlaylists(updatedPlaylists);
-      saveToStorage(updatedPlaylists);
 
+      saveToStorage(updatedPlaylists);
       return updatedPlaylists;
     });
 

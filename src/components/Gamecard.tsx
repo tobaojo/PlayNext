@@ -2,11 +2,12 @@ import { FC } from 'react';
 import { type Game, type Colours } from '../types/types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 type GamecardProps = {
   game: Game;
   handleClick?: (game: Game) => void;
+  iconName: IconDefinition;
 };
 
 const genreColors: Colours = {
@@ -18,7 +19,7 @@ const genreColors: Colours = {
   MOBA: 'bg-[#9753ea]',
 };
 
-const Gamecard: FC<GamecardProps> = ({ game, handleClick }) => {
+const Gamecard: FC<GamecardProps> = ({ game, handleClick, iconName }) => {
   const colorGenre = genreColors[game.genre] || 'bg-gray-700';
   return (
     <div key={game.id} className='max-w-sm'>
@@ -36,7 +37,7 @@ const Gamecard: FC<GamecardProps> = ({ game, handleClick }) => {
             <h4 className='hover:text-red-700'>{game.title}</h4>
             {handleClick && (
               <FontAwesomeIcon
-                icon={faHeartCirclePlus}
+                icon={iconName}
                 onClick={() => handleClick(game)}
                 className='text-red-600 hover:text-red-800'
               />

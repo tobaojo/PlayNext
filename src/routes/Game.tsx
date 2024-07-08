@@ -1,6 +1,6 @@
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { getSingleGame, getAllGames, saveToStorage, checkPlaylistInStorage } from '../api/api';
+import { getSingleGame, getAllGames, checkPlaylistInStorage } from '../api/api';
 import { type Game } from '../types/types';
 import GameSwiper from '../components/GameSwiper';
 import IconArrowLeft from '../components/LeftArrow';
@@ -24,7 +24,6 @@ export async function loader({ params }: { params: { gameId: string } }) {
 const Game = () => {
   const [playlists, setPlaylists] = useState(checkPlaylistInStorage());
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const navigate = useNavigate();
   const { singleGame } = useLoaderData() as { singleGame: Game };
 
@@ -157,7 +156,12 @@ const Game = () => {
       </div>
       {modalIsOpen && (
         <ModalElement setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen}>
-          <GameToAdd game={singleGame} closeModal={closeModal} />
+          <GameToAdd
+            game={singleGame}
+            closeModal={closeModal}
+            playlists={playlists}
+            setPlaylists={setPlaylists}
+          />
         </ModalElement>
       )}
       <Footer />
